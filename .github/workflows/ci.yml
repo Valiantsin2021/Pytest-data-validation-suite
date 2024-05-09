@@ -27,7 +27,7 @@ jobs:
 
     - name: Test with pytest
       run: |
-        pytest
+        pipenv run pytest
     - name: Upload Pytest report to GitHub
       uses: actions/upload-artifact@v3
       with:
