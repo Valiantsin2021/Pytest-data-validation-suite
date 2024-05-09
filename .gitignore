@@ -8,10 +8,6 @@ allure-results
 allure-report
 report
 
-# Data
-
-rt-feed-record/
-
 # C extensions
 *.so
 
