@@ -32,6 +32,8 @@ class TestAnalytics:
         for data in parsed_data:
             with soft_assertions():
                 assert_that(validate_entity_id(data["RP_ENTITY_ID"])).is_equal_to(True)
+                if not validate_entity_id(data["RP_ENTITY_ID"]):
+                    print(f'Wrong format RP_ENTITY_ID: {data["RP_ENTITY_ID"]} for RP_DOCUMENT_ID: {data['RP_DOCUMENT_ID']}, index DOCUMENT_RECORD_INDEX:{data['DOCUMENT_RECORD_INDEX']}:')
 
     @allure.story("Parse the records file")
     @allure.title("Verify the anallytics records number of distinct stories")
@@ -44,8 +46,8 @@ class TestAnalytics:
         for data in parsed_data:
             unique_document_ids.add(data["RP_DOCUMENT_ID"])
         with soft_assertions():
-            assert_that(len(unique_document_ids)).is_greater_than(0)
-        print(len(unique_document_ids))
+            assert_that(len(unique_document_ids)).is_equal_to(273)
+        print('Number of unique distinct stories that appear in the record file: ', len(unique_document_ids))
 
     @allure.story("Parse the records file")
     @allure.title("Verify the anallytics records has no dropped analytics")

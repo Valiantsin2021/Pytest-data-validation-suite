@@ -21,8 +21,11 @@ Test analytics records file to verify the following scenarios:
 ### The validation process:
 
 ● 	Verify that the RP_ENTITY_ID field follows the format: regexp matching [A-Z0-9]{6}
+
 ● 	Verify the anallytics records number of distinct stories: by counting the number of unique/distinct stories
+
 ● 	Verify the anallytics records has no dropped analytics: by counting the number of analytics records comparying the DOCUMENT_RECORD_INDEX index of the last record is equal to DOCUMENT_RECORD_COUNT for the RP_DOCUMENT_ID
+
 ● 	Verify the anallytics records has no missing analytics: by counting the number of analytics records that are missing for the RP_DOCUMENT_ID 
 
 ### Setup of dependencies for the tests 
