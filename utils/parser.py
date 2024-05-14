@@ -11,6 +11,29 @@ def parse_file(filename):
     return data
 
 
-def validate_entity_id(entity_id):
-    pattern = r"[A-Z0-9]{6}"
-    return bool(re.match(pattern, entity_id))
+def validate_entity_id(data):
+    failed_entity_ids = []
+    pattern = r"\b[0-9A-Z]{6}\b"
+    for row in data:
+        if not re.match(pattern, row["RP_ENTITY_ID"]):
+            failed_entity_ids.append(f"RP_DOCUMENT_ID: {row['RP_DOCUMENT_ID']} with wrong format RP_ENTITY_ID: {row["RP_ENTITY_ID"]}")
+    return failed_entity_ids
+
+def validate_dropped_analytics(data):
+    grouped_data = {}
+    dropped_records = {}
+    for item in data:
+        rp_document_id = item["RP_DOCUMENT_ID"]
+        if rp_document_id not in grouped_data:
+            grouped_data[rp_document_id] = []
+        grouped_data[rp_document_id].append(item["DOCUMENT_RECORD_INDEX"])
+    for key in grouped_data:
+        min_value = 1
+        max_value = max(grouped_data[key])
+        reference_list = list(range(min_value, max_value + 1))
+        missing_indexes = [
+            number for number in reference_list if number not in grouped_data[key]
+        ]
+        if len(missing_indexes) > 0:
+            dropped_records[key] = missing_indexes
+    return dropped_records
