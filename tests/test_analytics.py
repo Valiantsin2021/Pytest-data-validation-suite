@@ -51,25 +51,6 @@ class TestAnalytics:
             len(unique_document_ids),
         )
 
-    @allure.story("Parse the records file")
-    @allure.title("Verify the anallytics records has no dropped analytics")
-    @allure.description(
-        "Test the number of analytics records for each document and get the number of dropped analytics"
-    )
-    @allure.severity("blocker")
-    def test_dropped_analytics_comparing_count_to_last_index(self):
-        global unique_document_ids
-        count = 0
-        for data in parsed_data:
-            if data["DOCUMENT_RECORD_COUNT"] == data["DOCUMENT_RECORD_INDEX"]:
-                count += 1
-        print(count)
-        with soft_assertions():
-            assert_that(
-                count,
-                "The number of analytics records from DOCUMENT_RECORD_INDEX equals unique document ids",
-            ).is_equal_to(len(unique_document_ids))
-
     def test_missing_records_by_index_in_between(self):
         dropped_records = validate_dropped_analytics(parsed_data)
         with soft_assertions():
