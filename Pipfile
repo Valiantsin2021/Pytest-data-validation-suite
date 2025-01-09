@@ -9,6 +9,7 @@ allure-python-commons = "==2.13.2"
 pytest = "==7.4.3"
 pytest-html-reporter = "==0.2.9"
 assertpy = "==1.1"
+pandas = "*"
 
 [dev-packages]
 
